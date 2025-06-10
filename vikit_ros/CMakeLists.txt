@@ -16,6 +16,8 @@ ENDIF()
 # Add catkin and required ROS packages
 FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp vikit_common visualization_msgs tf cmake_modules)
 
+SET(Sophus_DIR /home/V01/uids0025/src/Sophus/build) # 改为自己的安装路径
+
 # Add plain cmake packages 
 FIND_PACKAGE(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)

@@ -25,7 +25,7 @@ private:
   const double fx_, fy_;
   const double cx_, cy_;
   bool distortion_;             //!< is it pure pinhole model or has it radial distortion?
-  double d_[5];                 //!< distortion parameters, see http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html
+  double d_[5];                 //!< [k1,k2,p1,p2,k3] distortion parameters, see http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html
   cv::Mat cvK_, cvD_;
   cv::Mat undist_map1_, undist_map2_;
   bool use_optimization_;
