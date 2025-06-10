@@ -54,6 +54,7 @@ cam2world(const double& u, const double& v) const
   }
   else
   {
+    // 去畸变后像素点
     cv::Point2f uv(u,v), px;
     const cv::Mat src_pt(1, 1, CV_32FC2, &uv.x);
     cv::Mat dst_pt(1, 1, CV_32FC2, &px.x);
@@ -109,6 +110,7 @@ world2cam(const Vector2d& uv) const
 void PinholeCamera::
 undistortImage(const cv::Mat& raw, cv::Mat& rectified)
 {
+  // 基于畸变参数对图像进行映射
   if(distortion_)
     cv::remap(raw, rectified, undist_map1_, undist_map2_, cv::INTER_LINEAR);
   else
