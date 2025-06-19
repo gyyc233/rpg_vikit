@@ -60,6 +60,11 @@ interpolateMat_8u(const cv::Mat& mat, float u, float v)
 
 void halfSample(const cv::Mat& in, cv::Mat& out);
 
+/// @brief 计算某个像素[u,v]的 Shi-Tomasi 角点得分
+/// @param img gray image
+/// @param u 
+/// @param v 
+/// @return Shi-Tomasi score of the pixel
 float shiTomasiScore(const cv::Mat& img, int u, int v);
 
 void calcSharrDeriv(const cv::Mat& src, cv::Mat& dst);

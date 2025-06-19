@@ -112,14 +112,21 @@ halfSample(const cv::Mat& in, cv::Mat& out)
 float
 shiTomasiScore(const cv::Mat& img, int u, int v)
 {
+  // 计算某个像素的 Shi-Tomasi 角点得分
   assert(img.type() == CV_8UC1);
 
-  float dXX = 0.0;
-  float dYY = 0.0;
-  float dXY = 0.0;
+  float dXX = 0.0; // x 方向梯度平方和
+  float dYY = 0.0; // y 方向梯度平方和
+  float dXY = 0.0; // x 和 y 梯度乘积和
+
+  // 使用一个 8x8 的窗口（以 (u,v) 为中心，半径为 4）来计算角点响应值
+  
   const int halfbox_size = 4;
   const int box_size = 2*halfbox_size;
   const int box_area = box_size*box_size;
+
+  // 计算窗口在 x 和 y 方向上的起始和结束坐标
+
   const int x_min = u-halfbox_size;
   const int x_max = u+halfbox_size;
   const int y_min = v-halfbox_size;
@@ -128,6 +135,7 @@ shiTomasiScore(const cv::Mat& img, int u, int v)
   if(x_min < 1 || x_max >= img.cols-1 || y_min < 1 || y_max >= img.rows-1)
     return 0.0; // patch is too close to the boundary
 
+  // stride 是图像每一行的字节数，用于快速访问图像数据
   const int stride = img.step.p[0];
   for( int y=y_min; y<y_max; ++y )
   {
@@ -146,6 +154,7 @@ shiTomasiScore(const cv::Mat& img, int u, int v)
   }
 
   // Find and return smaller eigenvalue:
+  // 构建结构张量，最终求出其最小特征值作为角点响应值，该响应值越大，说明该点越适合作为图像中的关键点
   dXX = dXX / (2.0 * box_area);
   dYY = dYY / (2.0 * box_area);
   dXY = dXY / (2.0 * box_area);
